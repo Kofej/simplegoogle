@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- Spring MVC common settings -->
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/views/com/svisoft/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean>
+
+  <!-- common controllers -->
+  <bean id="com.svisoft.common.web.AbstractController"
+        class="com.svisoft.common.web.AbstractController"
+        abstract="true"/>
+
+</beans>
