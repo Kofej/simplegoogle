@@ -30,11 +30,24 @@
       <version>3.2.5.RELEASE</version>
     </dependency>
 
-    <!-- TestNG -->
+    <!-- Guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>16.0.1</version>
+    </dependency>
+
+    <!-- Testing -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>6.8.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.jmockit</groupId>
+      <artifactId>jmockit</artifactId>
+      <version>1.5</version>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>

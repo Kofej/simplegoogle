@@ -3,9 +3,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <!-- Indexing -->
-  <bean class="com.svisoft.simplegoogle.web.indexing.IndexingController"
-        parent="com.svisoft.common.web.AbstractController"/>
+  <!-- Initializing -->
+  <bean class="com.svisoft.simplegoogle.web.initialize.InitializeController"
+        parent="com.svisoft.common.web.AbstractController">
+    <property name="initializeService" ref="com.svisoft.simplegoogle.core.initialize.InitializeService" />
+  </bean>
 
   <!-- Search -->
   <bean class="com.svisoft.simplegoogle.web.search.SearchController"

@@ -3,4 +3,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+  <bean id="com.svisoft.simplegoogle.core.initialize.InitializeService"
+        class="com.svisoft.simplegoogle.core.impl.initialize.InitializeServiceImpl">
+  </bean>
+
+  <bean id="com.svisoft.simplegoogle.core.search.SearchService"
+        class="com.svisoft.simplegoogle.core.impl.search.SearchServiceImpl">
+  </bean>
+
 </beans>

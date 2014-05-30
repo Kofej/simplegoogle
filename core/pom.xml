@@ -13,4 +13,15 @@
   <artifactId>simplegoogle-core</artifactId>
   <packaging>jar</packaging>
 
+  <dependencies>
+
+    <!-- Apache HttpComponents -->
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.1</version>
+    </dependency>
+
+  </dependencies>
+
 </project>

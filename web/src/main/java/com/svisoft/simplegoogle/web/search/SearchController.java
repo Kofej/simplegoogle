@@ -14,7 +14,7 @@ public class SearchController
     extends AbstractController
 {
 	@RequestMapping(SearchUrl.INDEX)
-	public String printWelcome(
+	public String index(
       Model model,
       WebRequest request,
       HttpSession session

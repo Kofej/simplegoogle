@@ -1,6 +1,6 @@
-package com.svisoft.simplegoogle.web.indexing;
+package com.svisoft.simplegoogle.web.initialize;
 
-public class IndexingUrl
+public class InitializeUrl
 {
   public static final String PREFIX = "/index";
 
