@@ -9,14 +9,14 @@ import java.util.List;
 public class SimplegoogleDocumentWrapper
 {
   private String id;
-  private String value;
+  private String title;
   private Document document;
 
   public SimplegoogleDocumentWrapper(Document document)
   {
     this.document = document;
     this.id = document.getField(StorageConfigFactory.ID_FIELD_NAME).stringValue();
-    this.value = document.getField(StorageConfigFactory.VALUE_FIELD_NAME).stringValue();
+    this.title = document.getField(StorageConfigFactory.TITLE_FIELD_NAME).stringValue();
   }
 
   public String getId()
@@ -29,14 +29,14 @@ public class SimplegoogleDocumentWrapper
     this.id = id;
   }
 
-  public String getValue()
+  public String getTitle()
   {
-    return value;
+    return title;
   }
 
-  public void setValue(String value)
+  public void setTitle(String title)
   {
-    this.value = value;
+    this.title = title;
   }
 
   public Document getDocument()

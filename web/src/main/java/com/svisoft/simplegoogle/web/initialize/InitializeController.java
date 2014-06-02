@@ -1,7 +1,7 @@
 package com.svisoft.simplegoogle.web.initialize;
 
 import com.svisoft.common.web.AbstractController;
-import com.svisoft.simplegoogle.core.impl.request.HttpRequestSender;
+import com.svisoft.simplegoogle.core.request.SimplegoogleHttpRequest;
 import com.svisoft.simplegoogle.core.storage.StorageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,8 +43,8 @@ public class InitializeController
   {
     // TODO:Index: deep indexing currently not supported
     String uri = request.getParameter("uri");
-    HttpRequestSender requestSender = new HttpRequestSender(uri);
-    storageService.updateOrCreate(requestSender.getUrl(), requestSender.send());
+    SimplegoogleHttpRequest httpRequest = new SimplegoogleHttpRequest(uri).sendRequest();
+    storageService.updateOrCreate(httpRequest.getUrl(), httpRequest.getTitle(), httpRequest.getClearText());
 
     return getView(InitializeUrl.INDEX_VIEW);
   }

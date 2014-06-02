@@ -15,8 +15,8 @@ public class StorageService_updateOrCreateTest
       throws
       Exception
   {
-    storageService.updateOrCreate("1", "value");
-    List<Document> result = storageService.search("value", 2);
+    storageService.updateOrCreate("http://url.com", "title", "context");
+    List<Document> result = storageService.search("context", 2);
     assertEquals(result.size(), 1);
   }
 
@@ -25,8 +25,8 @@ public class StorageService_updateOrCreateTest
       throws
       Exception
   {
-    storageService.updateOrCreate("http://url.com", "old");
-    storageService.updateOrCreate("http://url.com", "new value");
+    storageService.updateOrCreate("http://url.com", "title",  "old");
+    storageService.updateOrCreate("http://url.com", "title",  "new value");
     List<Document> result = storageService.search("old", 2);
     assertEquals(result.size(), 0);
     result = storageService.search("new value", 2);

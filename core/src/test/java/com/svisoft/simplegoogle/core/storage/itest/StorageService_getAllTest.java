@@ -20,10 +20,10 @@ public class StorageService_getAllTest
       throws
       Exception
   {
-    storageService.updateOrCreate("1", "1");
-    storageService.updateOrCreate("2", "2");
-    storageService.updateOrCreate("3", "3");
-    storageService.updateOrCreate("4", "4");
+    storageService.updateOrCreate("http://url.com", "title1",  "1");
+    storageService.updateOrCreate("http://url.com/index", "title2",  "2");
+    storageService.updateOrCreate("http://url.com/index/index", "title3",  "3");
+    storageService.updateOrCreate("http://url.com/index/index/index", "title4",  "4");
     assertEquals(storageService.getAll().size(), 4);
   }
 }

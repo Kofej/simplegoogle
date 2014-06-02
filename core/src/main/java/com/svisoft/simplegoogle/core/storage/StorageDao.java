@@ -26,11 +26,11 @@ public interface StorageDao
   // Modification
   //----------------------------------------------------------------------
 
-  void create(String id, String value)
+  void create(String id, String title, String context)
       throws
       Exception;
 
-  void update(String id, String value)
+  void update(String id, String title, String context)
       throws
       Exception;
 

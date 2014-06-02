@@ -41,13 +41,13 @@ public class StorageServiceImpl
   }
 
   @Override
-  public void updateOrCreate(String id, String value)
+  public void updateOrCreate(String id, String title, String context)
       throws
       Exception
   {
     if (isDocumentExist(id))
-      storageDao.update(id, value);
+      storageDao.update(id, title, context);
     else
-      storageDao.create(id, value);
+      storageDao.create(id, title, context);
   }
 }

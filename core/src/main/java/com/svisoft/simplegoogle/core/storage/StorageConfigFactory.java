@@ -11,7 +11,8 @@ public class StorageConfigFactory
 {
   public static final Version SIMPLEGOOGLE_LUCENE_VERSION = Version.LUCENE_46;
   public static final String ID_FIELD_NAME = "id";
-  public static final String VALUE_FIELD_NAME = "value";
+  public static final String TITLE_FIELD_NAME = "title";
+  public static final String CONTEXT_FIELD_NAME = "context";
 
   private static Directory directory;
   private static Analyzer analyzer;

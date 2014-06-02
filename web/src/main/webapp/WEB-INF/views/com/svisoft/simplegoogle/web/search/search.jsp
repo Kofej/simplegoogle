@@ -3,8 +3,11 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <c:forEach var="document" items="${documents}">
-      <c:out value="${document.id}" />
-    </c:forEach>
+    <div>
+      <c:forEach var="document" items="${documents}">
+        <div><c:out value="${document.title}" /></div>
+        <a href="<c:out value="${document.id}" />" ><c:out value="${document.id}" /></a>
+      </c:forEach>
+    </div>
   </body>
 </html>

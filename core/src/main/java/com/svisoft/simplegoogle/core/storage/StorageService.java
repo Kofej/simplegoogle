@@ -26,7 +26,7 @@ public interface StorageService
   // Modification
   //----------------------------------------------------------------------
 
-  void updateOrCreate(String id, String value)
+  void updateOrCreate(String id, String title, String context)
       throws
       Exception;
 

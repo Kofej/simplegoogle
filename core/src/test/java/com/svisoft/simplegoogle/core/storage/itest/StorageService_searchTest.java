@@ -18,7 +18,7 @@ public class StorageService_searchTest
       throws
       Exception
   {
-    storageService.updateOrCreate("http://url.com", "some string for search.Some stop words: do in for");
+    storageService.updateOrCreate("http://url.com", "title", "some string for search.Some stop words: do in for");
     assertEquals(storageService.search("for", 10).size(), 1);
     assertEquals(storageService.search("some", 10).size(), 1);
     assertEquals(storageService.search("some string", 10).size(), 1);
@@ -46,7 +46,7 @@ public class StorageService_searchTest
   {
     int i = 0;
     for (String value : valuesToStore)
-      storageService.updateOrCreate(Integer.toString(i++), value);
+      storageService.updateOrCreate(Integer.toString(i++), "title", value);
     assertEquals(storageService.search(query, count).size(), count);
   }
 }

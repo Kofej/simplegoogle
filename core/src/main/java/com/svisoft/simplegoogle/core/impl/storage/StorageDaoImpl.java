@@ -62,7 +62,7 @@ public class StorageDaoImpl
       Exception
   {
     List<Document> result = new ArrayList<Document>();
-    Query q = new QueryParser(StorageConfigFactory.SIMPLEGOOGLE_LUCENE_VERSION, StorageConfigFactory.VALUE_FIELD_NAME, StorageConfigFactory.getAnalyzer())
+    Query q = new QueryParser(StorageConfigFactory.SIMPLEGOOGLE_LUCENE_VERSION, StorageConfigFactory.CONTEXT_FIELD_NAME, StorageConfigFactory.getAnalyzer())
         .parse(QueryParser.escape(query));
 //    WildcardQuery q = new WildcardQuery(new Term(StorageConfigFactory.getValueFieldName(), query.toLowerCase()+"*"));
 //    TermQuery q = new TermQuery(new Term(StorageConfigFactory.getValueFieldName(), query));
@@ -81,28 +81,30 @@ public class StorageDaoImpl
   }
 
   @Override
-  public void create(String id, String value)
+  public void create(String id, String title, String context)
       throws
       Exception
   {
     IndexWriter writer = new IndexWriter(StorageConfigFactory.getDirectory(), StorageConfigFactory.getIndexWriterConfig());
     Document doc = new Document();
     doc.add(new Field(StorageConfigFactory.ID_FIELD_NAME, id, StringField.TYPE_STORED));
-    doc.add(new Field(StorageConfigFactory.VALUE_FIELD_NAME, value, TextField.TYPE_STORED));
+    doc.add(new Field(StorageConfigFactory.TITLE_FIELD_NAME, title, StringField.TYPE_STORED));
+    doc.add(new Field(StorageConfigFactory.CONTEXT_FIELD_NAME, context, TextField.TYPE_STORED));
     writer.addDocument(doc);
     writer.commit();
     writer.close();
   }
 
   @Override
-  public void update(String id, String value)
+  public void update(String id, String title, String context)
       throws
       Exception
   {
     IndexWriter writer = new IndexWriter(StorageConfigFactory.getDirectory(), StorageConfigFactory.getIndexWriterConfig());
     Document doc = new Document();
     doc.add(new Field(StorageConfigFactory.ID_FIELD_NAME, id, StringField.TYPE_STORED));
-    doc.add(new Field(StorageConfigFactory.VALUE_FIELD_NAME, value, TextField.TYPE_STORED));
+    doc.add(new Field(StorageConfigFactory.TITLE_FIELD_NAME, title, StringField.TYPE_STORED));
+    doc.add(new Field(StorageConfigFactory.CONTEXT_FIELD_NAME, context, TextField.TYPE_STORED));
     writer.updateDocument(new Term(StorageConfigFactory.ID_FIELD_NAME, id), doc);
     writer.close();
   }

@@ -1,18 +1,16 @@
-package com.svisoft.simplegoogle.core.impl.request;
+package com.svisoft.simplegoogle.core.request;
 
-import com.svisoft.simplegoogle.core.request.RequestSendException;
-import com.svisoft.simplegoogle.core.request.RequestSender;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.jsoup.Jsoup;
 
-public class HttpRequestSender
-    implements RequestSender
+public class SimplegoogleHttpRequest
 {
   private String url;
+  private String responseAsString;
 
-  public HttpRequestSender(String url)
+  public SimplegoogleHttpRequest(String url)
   {
     if (! url.startsWith("http://"))
       url = "http://" + url;
@@ -32,8 +30,17 @@ public class HttpRequestSender
     this.url = url;
   }
 
-  @Override
-  public String send()
+  public String getResponseAsString()
+  {
+    return responseAsString;
+  }
+
+  public void setResponseAsString(String responseAsString)
+  {
+    this.responseAsString = responseAsString;
+  }
+
+  public SimplegoogleHttpRequest sendRequest()
       throws
       RequestSendException
   {
@@ -42,17 +49,22 @@ public class HttpRequestSender
     try { client.executeMethod(method); }
     catch (Exception e) { throw new RequestSendException(e.getMessage()); }
 
-    String requestAsString;
-    try { requestAsString = method.getResponseBodyAsString(); }
+    String responseAsString;
+    try { responseAsString = method.getResponseBodyAsString(); }
     catch (Exception e) { throw new RequestSendException(e.getMessage()); }
 
-    return extractClearTextFromStringifiedHtml(requestAsString);
+    this.responseAsString = responseAsString;
+
+    return this;
   }
 
-  private String extractClearTextFromStringifiedHtml(String htmlAsString)
+  public String getClearText()
   {
+    if (responseAsString == null)
+      throw new IllegalStateException("Request send exception");
+
     //TODO:Request: improve to support href attribute (for recursive indexing)
-    return Jsoup.parse(htmlAsString).text();
+    return Jsoup.parse(responseAsString).text();
 
     //TODO:RegEx: improve to support situation when javascript code injected into html
     //TODO:RegEx: improve to support href attribute (for recursive indexing)
@@ -64,4 +76,11 @@ public class HttpRequestSender
 //        .replaceAll(" {2,}", " "); // delete more than one whitespace with one whitespace
   }
 
+  public String getTitle()
+  {
+    if (responseAsString == null)
+      throw new IllegalStateException("Request send exception");
+
+    return Jsoup.parse(responseAsString).title();
+  }
 }
