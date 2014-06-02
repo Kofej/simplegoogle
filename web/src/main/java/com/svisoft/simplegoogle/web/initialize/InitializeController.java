@@ -41,6 +41,7 @@ public class InitializeController
   )
       throws Exception
   {
+    // TODO:Index: deep indexing currently not supported
     String uri = request.getParameter("uri");
     HttpRequestSender requestSender = new HttpRequestSender(uri);
     storageService.updateOrCreate(requestSender.getUrl(), requestSender.send());

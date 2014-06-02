@@ -51,7 +51,6 @@ public class HttpRequestSender
 
   private String extractClearTextFromStringifiedHtml(String htmlAsString)
   {
-    //TODO:Design: move that method to another class(something like RequestMaker, RuqestBuilder, etc)
     //TODO:Request: improve to support href attribute (for recursive indexing)
     return Jsoup.parse(htmlAsString).text();
 
