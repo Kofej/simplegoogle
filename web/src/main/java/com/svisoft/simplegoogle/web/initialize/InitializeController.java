@@ -1,7 +1,8 @@
 package com.svisoft.simplegoogle.web.initialize;
 
 import com.svisoft.common.web.AbstractController;
-import com.svisoft.simplegoogle.core.initialize.InitializeService;
+import com.svisoft.simplegoogle.core.impl.request.HttpRequestSender;
+import com.svisoft.simplegoogle.core.storage.StorageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,11 @@ import javax.servlet.http.HttpSession;
 public class InitializeController
     extends AbstractController
 {
-  private InitializeService initializeService;
+  private StorageService storageService;
 
-  public void setInitializeService(InitializeService initializeService)
+  public void setStorageService(StorageService storageService)
   {
-    this.initializeService = initializeService;
+    this.storageService = storageService;
   }
 
   @RequestMapping(InitializeUrl.INDEX)
@@ -33,14 +34,16 @@ public class InitializeController
   }
 
   @RequestMapping(value = InitializeUrl.INDEX, method = RequestMethod.POST)
-  public String initialize(
+  public String initializeByUrl(
       Model model,
       WebRequest request,
       HttpSession session
   )
       throws Exception
   {
-    initializeService.initByUrl(request.getParameter("uri"));
+    String uri = request.getParameter("uri");
+    HttpRequestSender requestSender = new HttpRequestSender(uri);
+    storageService.updateOrCreate(requestSender.getUrl(), requestSender.send());
 
     return getView(InitializeUrl.INDEX_VIEW);
   }
