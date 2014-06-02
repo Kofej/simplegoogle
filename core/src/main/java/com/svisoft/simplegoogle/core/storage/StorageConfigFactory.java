@@ -34,6 +34,7 @@ public class StorageConfigFactory
       synchronized (StorageConfigFactory.class)
       {
         if (analyzer == null)
+          //TODO: introduce own analyzer. Something like WhiteSpace+Simple analyzer :)
 //          analyzer = new StandardAnalyzer(SIMPLEGOOGLE_LUCENE_VERSION);
           analyzer = new WhitespaceAnalyzer(SIMPLEGOOGLE_LUCENE_VERSION);
 //          analyzer = new SimpleAnalyzer(SIMPLEGOOGLE_LUCENE_VERSION);
