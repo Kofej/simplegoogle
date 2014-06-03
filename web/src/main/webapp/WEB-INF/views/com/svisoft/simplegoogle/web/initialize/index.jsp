@@ -2,11 +2,15 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <form>
-    <input name="url" type="text">
-    <input name="depth" type="number">
-
-    <button type="submit">Index</button>
-  </form>
+  <div>
+    <form>
+      <label>Url for indexing</label>
+      <div>
+        <input name="url" type="text">
+        <input name="depth" value="1" style="width: 35px">
+        <button type="submit">Index</button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

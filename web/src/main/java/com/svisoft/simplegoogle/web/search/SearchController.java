@@ -30,14 +30,12 @@ public class SearchController
       HttpSession session
   )
   {
-		model.addAttribute("message", "Search page");
-
     return getView(SearchUrl.INDEX_VIEW);
 	}
 
   @RequestMapping(SearchUrl.SEARCH)
 	public String search(
-      @RequestParam(defaultValue = " ") String query,
+      @RequestParam(defaultValue = "") String query,
       Model model,
       WebRequest request,
       HttpSession session
@@ -45,7 +43,8 @@ public class SearchController
       throws
       Exception
   {
-    model.addAttribute("documents", SimplegoogleDocumentWrapper.wrapDocuments(storageService.search(query, 10)));
+    if (!query.equals(""))
+      model.addAttribute("documents", SimplegoogleDocumentWrapper.wrapDocuments(storageService.search(query, SearchPage.DEFAULT_SEARCH_COUNT)));
 
     return getView(SearchUrl.SEARCH_VIEW);
 	}

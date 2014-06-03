@@ -2,11 +2,15 @@
 <%@ page import="com.svisoft.simplegoogle.web.search.SearchUrl" %>
 <!DOCTYPE html>
 <html>
-  <body>
+<body>
+  <div>
     <form action="<%=SearchUrl.SEARCH_URL%>">
-      <input name="query" type="text">
-
-      <input type="submit" value="Search" />
+      <label>Enter search query</label>
+      <div>
+        <input name="query" type="text">
+        <button type="submit">Search</button>
+      </div>
     </form>
-  </body>
+  </div>
+</body>
 </html>

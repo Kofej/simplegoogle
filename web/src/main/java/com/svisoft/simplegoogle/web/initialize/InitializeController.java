@@ -28,8 +28,8 @@ public class InitializeController
 
   @RequestMapping(value = InitializeUrl.INDEX)
   public String initializeByUrl(
-      @RequestParam(defaultValue = "") String url,
-      @RequestParam(defaultValue = "5") Integer depth,
+      @RequestParam(defaultValue = "", required = false) String url,
+      @RequestParam(defaultValue = "", required = false) String depth,
       Model model,
       WebRequest request,
       HttpSession session
@@ -37,13 +37,10 @@ public class InitializeController
       throws
       Exception
   {
-//    SimplegoogleHttpRequest httpRequest = new SimplegoogleHttpRequest(uri);
-//    storageService.updateOrCreate(httpRequest.getUrl(), httpRequest.getTitle(), httpRequest.getClearText());
-    if (! url.equals(""))
+    if (!url.equals("") || !depth.equals(""))
     {
-      String urlToScan = url;
       Set<SimplegoogleHttpRequest> collector = new HashSet<SimplegoogleHttpRequest>();
-      SimplegoogleHttpRequest.deepScan(Sets.newHashSet(new SimplegoogleHttpRequest(urlToScan)), depth, collector);
+      SimplegoogleHttpRequest.deepScan(Sets.newHashSet(new SimplegoogleHttpRequest(url)), Integer.parseInt(depth), collector);
       for (SimplegoogleHttpRequest httpRequest : collector)
         storageService.updateOrCreate(httpRequest.getUrl(), httpRequest.getTitle(), httpRequest.getClearText());
     }

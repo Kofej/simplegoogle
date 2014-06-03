@@ -52,24 +52,12 @@ public class SimplegoogleHttpRequest
     try
     {
       parsedResponse = Jsoup.connect(url).get();
-//      Elements links = doc.select("a[href]"); link.attr("abs:href")
     }
     catch(Exception e)
     {
       throw new RequestSendException(e.getMessage());
     }
 
-//    HttpClient client = new HttpClient();
-//    HttpMethod method = new GetMethod(url);
-//    try { client.executeMethod(method); }
-//    catch (Exception e) { throw new RequestSendException(e.getMessage()); }
-//
-//    String responseAsString;
-//    try { responseAsString = method.getResponseBodyAsString(); }
-//    catch (Exception e) { throw new RequestSendException(e.getMessage()); }
-//
-//    this.parsedResponse = Jsoup.parse(responseAsString);
-//
     return this;
   }
 
@@ -81,15 +69,6 @@ public class SimplegoogleHttpRequest
       throw new IllegalStateException("Response is missed");
 
     return parsedResponse.text();
-
-    //TODO:RegEx: improve to support situation when javascript code injected into html
-    //TODO:RegEx: improve to support href attribute (for recursive indexing)
-//    return htmlAsString
-//        .replaceAll("\\s", " ")    // delete [ \t\n\x0b\r\f]
-//        .replaceAll("<script.*?script>", " ")    // delete [ \t\n\x0b\r\f]
-//        .replaceAll("<.*?>", " ")  // delete all html tags like <*></*>
-//        .replaceAll("\\n", " ")    // delete all \n
-//        .replaceAll(" {2,}", " "); // delete more than one whitespace with one whitespace
   }
 
   public String getTitle()
