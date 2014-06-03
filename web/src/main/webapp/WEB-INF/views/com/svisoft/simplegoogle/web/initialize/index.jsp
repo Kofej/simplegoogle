@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <form method="post">
-    <input name="uri" type="text">
+  <form>
+    <input name="url" type="text">
+    <input name="depth" type="number">
 
-    <button type="submit" class="btn">Index</button>
+    <button type="submit">Index</button>
   </form>
 </body>
 </html>

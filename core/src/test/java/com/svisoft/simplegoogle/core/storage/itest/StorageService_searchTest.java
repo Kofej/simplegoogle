@@ -24,7 +24,7 @@ public class StorageService_searchTest
     assertEquals(storageService.search("some string", 10).size(), 1);
     assertEquals(storageService.search("string some while", 10).size(), 1);
     assertEquals(storageService.search("string do in", 10).size(), 1);
-//    assertEquals(storageService.search("search", 10).size(), 1);
+//    assertEquals(storageService.search("search", 10).size(), 1);     :-(
   }
 
   @DataProvider
