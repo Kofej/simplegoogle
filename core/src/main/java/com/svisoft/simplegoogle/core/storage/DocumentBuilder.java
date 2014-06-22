@@ -4,16 +4,16 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 
-public class SimplegoogleDocumentBuilder
+public class DocumentBuilder
 {
   private Document document;
 
-  public SimplegoogleDocumentBuilder()
+  public DocumentBuilder()
   {
     this.document = new Document();
   }
 
-  public SimplegoogleDocumentBuilder add(
+  public DocumentBuilder add(
       String name,
       String value,
       FieldType fieldType

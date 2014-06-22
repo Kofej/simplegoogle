@@ -1,6 +1,6 @@
 package com.svisoft.simplegoogle.core.storage.itest;
 
-import org.apache.lucene.document.Document;
+import com.svisoft.simplegoogle.core.storage.SimplegoogleDocument;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class StorageService_updateOrCreateTest
       Exception
   {
     storageService.updateOrCreate("http://url.com", "title", "context");
-    List<Document> result = storageService.search("context", 2);
+    List<SimplegoogleDocument> result = storageService.search("context", 2);
     assertEquals(result.size(), 1);
   }
 
@@ -27,7 +27,7 @@ public class StorageService_updateOrCreateTest
   {
     storageService.updateOrCreate("http://url.com", "title",  "old");
     storageService.updateOrCreate("http://url.com", "title",  "new value");
-    List<Document> result = storageService.search("old", 2);
+    List<SimplegoogleDocument> result = storageService.search("old", 2);
     assertEquals(result.size(), 0);
     result = storageService.search("new value", 2);
     assertEquals(result.size(), 1);

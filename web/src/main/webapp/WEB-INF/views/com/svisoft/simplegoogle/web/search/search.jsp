@@ -33,37 +33,28 @@
     </tbody>
   </table>
   <div class="search-result-container">
-    <ol>
-      <c:choose>
-        <c:when test="${not empty documents}">
-          <c:forEach var="document" items="${documents}">
-            <li class="search-result-document">
-              <h3 class="search-result-title">
-                <a href="<c:out value="${document.id}" />" >
-                  <c:out value="${document.title}"/>
-                </a>
-              </h3>
-              <div class="search-result-url">
-                <cite><c:out value="${document.id}" /></cite>
-                <div class="search-result-text">
-                  <c:out value="${document.text}"/>
-                </div>
-              </div>
-              <div>
-                &nbsp;
-              </div>
-            </li>
-          </c:forEach>
-        </c:when>
-        <c:otherwise>
+    <c:if test="${not empty documents}">
+      <ol>
+        <c:forEach var="document" items="${documents}">
           <li class="search-result-document">
+            <h3 class="search-result-title">
+              <a href="<c:out value="${document.id}" />" >
+                <c:out value="${document.title}"/>
+              </a>
+            </h3>
+            <div class="search-result-url">
+              <cite><c:out value="${document.id}" /></cite>
+              <div class="search-result-text">
+                <c:out value="${document.text}"/>
+              </div>
+            </div>
             <div>
-              <h3><c:out value="cann't find" /></h3>
+              &nbsp;
             </div>
           </li>
-        </c:otherwise>
-      </c:choose>
-    </ol>
+        </c:forEach>
+      </ol>
+    </c:if>
   </div>
 </body>
 </html>

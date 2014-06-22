@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import="com.svisoft.simplegoogle.web.initialize.InitializeUrl" %>
+<%@ page import="com.svisoft.simplegoogle.web.search.SearchUrl" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -22,6 +23,11 @@
           </td>
           <td class="inv index-submit-container">
             <input class="index-submit" type="submit" value=" " />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="<%=SearchUrl.SEARCH_URL%>">Go to search.</a>
           </td>
         </tr>
         </tbody>

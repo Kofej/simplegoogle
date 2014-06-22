@@ -18,7 +18,7 @@ public interface StorageDao
       throws
       Exception;
 
-  List<Document> search(String query, int count)
+  List<SimplegoogleDocument> search(String query, int count)
       throws
       Exception;
 
@@ -34,7 +34,7 @@ public interface StorageDao
       throws
       Exception;
 
-  void delete(String id)
+  void deleteById(String id)
       throws
       Exception;
 

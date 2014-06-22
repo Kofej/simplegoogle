@@ -18,7 +18,7 @@ public interface StorageService
       throws
       Exception;
 
-  List<Document> search(String query, int count)
+  List<SimplegoogleDocument> search(String query, int count)
       throws
       Exception;
 

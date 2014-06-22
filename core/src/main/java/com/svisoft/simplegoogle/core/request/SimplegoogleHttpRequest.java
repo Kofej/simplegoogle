@@ -8,7 +8,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class SimplegoogleHttpRequest
@@ -52,7 +51,7 @@ public class SimplegoogleHttpRequest
   {
     try
     {
-      String ua = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0";
+      String ua = "Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0";
 //      Map<String, String> cookies = Jsoup.connect(url).execute().cookies();
       parsedResponse = Jsoup.connect(url).userAgent(ua).get();
     }
@@ -79,7 +78,7 @@ public class SimplegoogleHttpRequest
     if (parsedResponse == null)
       throw new IllegalStateException("Response is missed");
 
-    return parsedResponse.title();
+    return parsedResponse.title().isEmpty() ? "no title" : parsedResponse.title();
   }
 
   public static void deepScan(Set<SimplegoogleHttpRequest> requests, int depth, Set<SimplegoogleHttpRequest> collector)

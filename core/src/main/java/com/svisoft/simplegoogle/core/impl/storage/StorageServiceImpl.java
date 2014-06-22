@@ -1,5 +1,6 @@
 package com.svisoft.simplegoogle.core.impl.storage;
 
+import com.svisoft.simplegoogle.core.storage.SimplegoogleDocument;
 import com.svisoft.simplegoogle.core.storage.StorageService;
 import com.svisoft.simplegoogle.core.storage.StorageDao;
 import org.apache.lucene.document.Document;
@@ -33,7 +34,7 @@ public class StorageServiceImpl
   }
 
   @Override
-  public List<Document> search(String query, int count)
+  public List<SimplegoogleDocument> search(String query, int count)
       throws
       Exception
   {
