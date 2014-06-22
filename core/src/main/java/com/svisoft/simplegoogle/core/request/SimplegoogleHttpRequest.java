@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class SimplegoogleHttpRequest
@@ -51,7 +52,9 @@ public class SimplegoogleHttpRequest
   {
     try
     {
-      parsedResponse = Jsoup.connect(url).get();
+      String ua = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0";
+//      Map<String, String> cookies = Jsoup.connect(url).execute().cookies();
+      parsedResponse = Jsoup.connect(url).userAgent(ua).get();
     }
     catch(Exception e)
     {

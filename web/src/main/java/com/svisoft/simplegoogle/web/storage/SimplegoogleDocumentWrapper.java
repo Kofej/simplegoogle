@@ -10,6 +10,7 @@ public class SimplegoogleDocumentWrapper
 {
   private String id;
   private String title;
+  private String text = "";
   private Document document;
 
   public SimplegoogleDocumentWrapper(Document document)
@@ -37,6 +38,16 @@ public class SimplegoogleDocumentWrapper
   public void setTitle(String title)
   {
     this.title = title;
+  }
+
+  public String getText()
+  {
+    return text;
+  }
+
+  public void setText(String text)
+  {
+    this.text = text;
   }
 
   public Document getDocument()

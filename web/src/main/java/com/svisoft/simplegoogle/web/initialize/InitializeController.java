@@ -28,22 +28,21 @@ public class InitializeController
 
   @RequestMapping(value = InitializeUrl.INDEX)
   public String initializeByUrl(
-      @RequestParam(defaultValue = "", required = false) String url,
-      @RequestParam(defaultValue = "", required = false) String depth,
       Model model,
-      WebRequest request,
-      HttpSession session
+      @RequestParam(required = false) String url,
+      @RequestParam(required = false) Integer depth
   )
       throws
       Exception
   {
-    if (!url.equals("") || !depth.equals(""))
+    if (url != null)
     {
       Set<SimplegoogleHttpRequest> collector = new HashSet<SimplegoogleHttpRequest>();
-      SimplegoogleHttpRequest.deepScan(Sets.newHashSet(new SimplegoogleHttpRequest(url)), Integer.parseInt(depth), collector);
+      SimplegoogleHttpRequest.deepScan(Sets.newHashSet(new SimplegoogleHttpRequest(url)), depth, collector);
       for (SimplegoogleHttpRequest httpRequest : collector)
         storageService.updateOrCreate(httpRequest.getUrl(), httpRequest.getTitle(), httpRequest.getClearText());
     }
+    model.addAttribute("url", url);
 
     return getView(InitializeUrl.INDEX_VIEW);
   }

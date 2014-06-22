@@ -3,31 +3,67 @@
 <%@ page import="com.svisoft.simplegoogle.web.search.SearchUrl" %>
 <!DOCTYPE html>
 <html>
-  <body>
-    <div>
-      <form action="<%=SearchUrl.SEARCH_URL%>">
-        <label>Enter search query</label>
-        <div>
-          <input name="query" type="text">
-          <button type="submit">Search</button>
-        </div>
-      </form>
-    </div>
-    <div>
+<head>
+  <link rel="stylesheet" type="text/css" href="<c:url value='/css/simplegoogle/search/search.css'/>"/>
+</head>
+<body>
+  <table class="container">
+    <tbody>
+      <tr>
+        <td>
+          <div class="f-logo-content"></div>
+          <div class="f-search-content">
+            <form action="<%=SearchUrl.SEARCH_URL%>">
+              <table class="inv">
+                <tbody>
+                <tr>
+                  <td class="inv border search-input-container">
+                    <input class="search-input" name="query" type="text" title="Query to search" value="<c:out value="${query}"/>" />
+                  </td>
+                  <td class="inv search-submit-container">
+                    <input class="search-submit" type="submit" value=" " />
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="search-result-container">
+    <ol>
       <c:choose>
         <c:when test="${not empty documents}">
           <c:forEach var="document" items="${documents}">
-            <div>
-              <div><c:out value="${document.title}" /></div>
-              <a href="<c:out value="${document.id}" />" ><c:out value="${document.id}" /></a>
-              &nbsp;
-            </div>
+            <li class="search-result-document">
+              <h3 class="search-result-title">
+                <a href="<c:out value="${document.id}" />" >
+                  <c:out value="${document.title}"/>
+                </a>
+              </h3>
+              <div class="search-result-url">
+                <cite><c:out value="${document.id}" /></cite>
+                <div class="search-result-text">
+                  <c:out value="${document.text}"/>
+                </div>
+              </div>
+              <div>
+                &nbsp;
+              </div>
+            </li>
           </c:forEach>
         </c:when>
         <c:otherwise>
-          <c:out value="cann't find" />
+          <li class="search-result-document">
+            <div>
+              <h3><c:out value="cann't find" /></h3>
+            </div>
+          </li>
         </c:otherwise>
       </c:choose>
-    </div>
-  </body>
+    </ol>
+  </div>
+</body>
 </html>

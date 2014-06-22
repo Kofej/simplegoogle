@@ -24,11 +24,7 @@ public class SearchController
   }
 
   @RequestMapping(SearchUrl.INDEX)
-	public String index(
-      Model model,
-      WebRequest request,
-      HttpSession session
-  )
+	public String index()
   {
     return getView(SearchUrl.INDEX_VIEW);
 	}
@@ -36,15 +32,14 @@ public class SearchController
   @RequestMapping(SearchUrl.SEARCH)
 	public String search(
       @RequestParam(defaultValue = "") String query,
-      Model model,
-      WebRequest request,
-      HttpSession session
+      Model model
   )
       throws
       Exception
   {
     if (!query.equals(""))
       model.addAttribute("documents", SimplegoogleDocumentWrapper.wrapDocuments(storageService.search(query, SearchPage.DEFAULT_SEARCH_COUNT)));
+    model.addAttribute("query", query);
 
     return getView(SearchUrl.SEARCH_VIEW);
 	}

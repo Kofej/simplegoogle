@@ -1,0 +1,120 @@
+body
+{
+  margin: 0;
+}
+.inv
+{
+  border: 0;
+  padding: 0;
+}
+.border
+{
+  padding: 0;
+  border: 1px solid #a8a8a8;
+}
+.border:hover
+{
+  border: 1px solid #6f6f6f;
+}
+.container
+{
+  background-color: #e8e8e8;
+  /*position: absolute;*/
+  width: 100%;
+}
+.f-logo-content
+{
+  height: 50px;
+  background: url("/img/simplegoogle/min_logo.png") no-repeat center;
+  float: left;
+  width: 100px;
+  padding-left: 20px;
+}
+.f-search-content
+{
+  height: 50px;
+  float: left;
+  width: 500px;
+}
+.f-search-content form
+{
+  padding-top: 10px;
+}
+.f-search-content table
+{
+  border-spacing: 0;
+  width: 100%;
+  height: 100%;
+}
+.search-input-container
+{
+  /*width: 75%;*/
+  height: 100%;
+  padding-left: 7px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: white;
+}
+.search-input
+{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-size: 100%;
+}
+.search-submit-container
+{
+  height: 100%;
+  width: 10%;
+}
+.search-submit
+{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: url("/img/simplegoogle/search.png") no-repeat center;
+  background-color: #4387fd;
+}
+.search-submit:hover
+{
+  background-color: #3667cb;
+}
+.search-result-container
+{
+  padding-top: 20px;
+  padding-left: 120px;
+  width: 420px;
+}
+.search-result-document
+{
+  list-style-type: none;
+}
+.search-result-title
+{
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+}
+.search-result-title a
+{
+  text-decoration: none;
+  color: #1a0dab;
+}
+.search-result-title a:hover
+{
+  text-decoration: underline;
+}
+.search-result-url cite
+{
+  color: green;
+  font-style: normal;
+}
+.search-result-text
+{
+  color: #545454;
+  font-style: normal;
+}
