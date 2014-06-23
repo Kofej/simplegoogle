@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <td>
-            <a href="<%=SearchUrl.SEARCH_URL%>">Go to search.</a>
+            <a href="<%=SearchUrl.INDEX_URL%>">Go to search</a>
           </td>
         </tr>
         </tbody>
