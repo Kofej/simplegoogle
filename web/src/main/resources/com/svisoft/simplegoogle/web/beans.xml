@@ -1,12 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <!-- Initializing -->
   <bean class="com.svisoft.simplegoogle.web.initialize.InitializeController"
         parent="com.svisoft.common.web.AbstractController">
-    <property name="storageService" ref="com.svisoft.simplegoogle.core.storage.StorageService" />
+    <property name="initializeService" ref="com.svisoft.simplegoogle.core.initialize.InitializeService" />
   </bean>
 
   <!-- Search -->

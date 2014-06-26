@@ -19,6 +19,7 @@ import java.util.List;
 public class StorageDaoImpl
     implements StorageDao
 {
+  // Constants for dao internal usage. It's not a configurations
   public static final Version SIMPLEGOOGLE_LUCENE_VERSION = Version.LUCENE_46;
   public static final String ID_FIELD_NAME = "id";
   public static final String TITLE_FIELD_NAME = "title";
@@ -68,11 +69,6 @@ public class StorageDaoImpl
     List<SimplegoogleDocument> result = new ArrayList<SimplegoogleDocument>();
     if (getDirectory().listAll().length == 0)
       return result;
-//    MultiFieldQueryParser q = new MultiFieldQueryParser(
-//        SIMPLEGOOGLE_LUCENE_VERSION,
-//        new String[]{TITLE_FIELD_NAME, CONTEXT_FIELD_NAME},
-//        getAnalyzer()
-//    );
     Query q = new QueryParser(SIMPLEGOOGLE_LUCENE_VERSION, CONTEXT_FIELD_NAME, getAnalyzer())
         .parse(QueryParser.escape(query));
     IndexReader reader = DirectoryReader.open(getDirectory());

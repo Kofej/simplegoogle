@@ -29,8 +29,4 @@ public interface StorageService
   void updateOrCreate(String id, String title, String context)
       throws
       Exception;
-
-  //----------------------------------------------------------------------
-  // Utilz
-  //----------------------------------------------------------------------
 }

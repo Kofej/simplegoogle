@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <!-- Storage -->
@@ -11,6 +13,18 @@
 
   <bean id="com.svisoft.simplegoogle.db.storage.StorageDao"
         class="com.svisoft.simplegoogle.core.impl.storage.StorageDaoImpl">
+  </bean>
+
+  <!-- Request -->
+  <bean id="com.svisoft.simplegoogle.core.request.RequestService"
+        class="com.svisoft.simplegoogle.core.impl.request.RequestServiceImpl">
+  </bean>
+
+  <!-- Initialize -->
+  <bean id="com.svisoft.simplegoogle.core.initialize.InitializeService"
+        class="com.svisoft.simplegoogle.core.impl.initialize.InitializeServiceImpl">
+    <property name="storageService" ref="com.svisoft.simplegoogle.core.storage.StorageService" />
+    <property name="requestService" ref="com.svisoft.simplegoogle.core.request.RequestService" />
   </bean>
 
 </beans>
