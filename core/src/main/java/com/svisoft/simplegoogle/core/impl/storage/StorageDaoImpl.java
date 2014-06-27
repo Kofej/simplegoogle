@@ -19,13 +19,27 @@ import java.util.List;
 public class StorageDaoImpl
     implements StorageDao
 {
-  // Constants for dao internal usage. It's not a configurations
   public static final Version SIMPLEGOOGLE_LUCENE_VERSION = Version.LUCENE_46;
-  public static final String ID_FIELD_NAME = "id";
-  public static final String TITLE_FIELD_NAME = "title";
-  public static final String CONTEXT_FIELD_NAME = "context";
+  private String idFieldName;
+  private String titleFieldName;
+  private String contextFieldName;
   private Directory directory;
   private Analyzer analyzer;
+
+  public void setIdFieldName(String idFieldName)
+  {
+    this.idFieldName = idFieldName;
+  }
+
+  public void setTitleFieldName(String titleFieldName)
+  {
+    this.titleFieldName = titleFieldName;
+  }
+
+  public void setContextFieldName(String contextFieldName)
+  {
+    this.contextFieldName = contextFieldName;
+  }
 
   @Override
   public List<Document> getAll()
@@ -49,7 +63,7 @@ public class StorageDaoImpl
       Exception
   {
     PhraseQuery q = new PhraseQuery();
-    q.add(new Term(ID_FIELD_NAME, id));
+    q.add(new Term(idFieldName, id));
     if (getDirectory().listAll().length == 0)
       return false;
     IndexReader reader = DirectoryReader.open(getDirectory());
@@ -69,7 +83,7 @@ public class StorageDaoImpl
     List<SimplegoogleDocument> result = new ArrayList<SimplegoogleDocument>();
     if (getDirectory().listAll().length == 0)
       return result;
-    Query q = new QueryParser(SIMPLEGOOGLE_LUCENE_VERSION, CONTEXT_FIELD_NAME, getAnalyzer())
+    Query q = new QueryParser(SIMPLEGOOGLE_LUCENE_VERSION, contextFieldName, getAnalyzer())
         .parse(QueryParser.escape(query));
     IndexReader reader = DirectoryReader.open(getDirectory());
     IndexSearcher searcher = new IndexSearcher(reader);
@@ -81,9 +95,9 @@ public class StorageDaoImpl
     {
       Document doc = searcher.doc(scoreDoc.doc);
       sDocument = new SimplegoogleDocument();
-      sDocument.setId(doc.get(ID_FIELD_NAME));
-      sDocument.setTitle(doc.get(TITLE_FIELD_NAME));
-      sDocument.setContext(doc.get(CONTEXT_FIELD_NAME));
+      sDocument.setId(doc.get(idFieldName));
+      sDocument.setTitle(doc.get(titleFieldName));
+      sDocument.setContext(doc.get(contextFieldName));
       sDocument.setText("text");
       result.add(sDocument);
     }
@@ -99,9 +113,9 @@ public class StorageDaoImpl
   {
     IndexWriter writer = new IndexWriter(getDirectory(), new IndexWriterConfig(SIMPLEGOOGLE_LUCENE_VERSION, getAnalyzer()));
     Document doc = new DocumentBuilder()
-        .add(ID_FIELD_NAME, id, StringField.TYPE_STORED)
-        .add(TITLE_FIELD_NAME, title, TextField.TYPE_STORED)
-        .add(CONTEXT_FIELD_NAME, context, TextField.TYPE_NOT_STORED)
+        .add(idFieldName, id, StringField.TYPE_STORED)
+        .add(titleFieldName, title, TextField.TYPE_STORED)
+        .add(contextFieldName, context, TextField.TYPE_NOT_STORED)
         .build();
     writer.addDocument(doc);
     writer.commit();
@@ -115,11 +129,11 @@ public class StorageDaoImpl
   {
     IndexWriter writer = new IndexWriter(getDirectory(), new IndexWriterConfig(SIMPLEGOOGLE_LUCENE_VERSION, getAnalyzer()));
     Document doc = new DocumentBuilder()
-        .add(ID_FIELD_NAME, id, StringField.TYPE_STORED)
-        .add(TITLE_FIELD_NAME, title, TextField.TYPE_STORED)
-        .add(CONTEXT_FIELD_NAME, context, TextField.TYPE_NOT_STORED)
+        .add(idFieldName, id, StringField.TYPE_STORED)
+        .add(titleFieldName, title, TextField.TYPE_STORED)
+        .add(contextFieldName, context, TextField.TYPE_NOT_STORED)
         .build();
-    writer.updateDocument(new Term(ID_FIELD_NAME, id), doc);
+    writer.updateDocument(new Term(idFieldName, id), doc);
     writer.close();
   }
 
@@ -129,7 +143,7 @@ public class StorageDaoImpl
       Exception
   {
     IndexWriter writer = new IndexWriter(getDirectory(), new IndexWriterConfig(SIMPLEGOOGLE_LUCENE_VERSION, getAnalyzer()));
-    writer.deleteDocuments(new Term(ID_FIELD_NAME, id));
+    writer.deleteDocuments(new Term(idFieldName, id));
     writer.close();
   }
 

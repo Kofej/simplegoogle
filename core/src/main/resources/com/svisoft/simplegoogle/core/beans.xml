@@ -13,6 +13,9 @@
 
   <bean id="com.svisoft.simplegoogle.db.storage.StorageDao"
         class="com.svisoft.simplegoogle.core.impl.storage.StorageDaoImpl">
+    <property name="idFieldName" value="id" />  <!--TODO: move to global conf file-->
+    <property name="titleFieldName" value="title" /> <!--TODO: move to global conf file-->
+    <property name="contextFieldName" value="context" /> <!--TODO: move to global conf file-->
   </bean>
 
   <!-- Request -->
