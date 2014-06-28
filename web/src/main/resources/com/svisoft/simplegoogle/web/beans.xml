@@ -14,7 +14,7 @@
   <!-- Search -->
   <bean class="com.svisoft.simplegoogle.web.search.SearchController"
         parent="com.svisoft.common.web.AbstractController">
-    <property name="storageService" ref="com.svisoft.simplegoogle.core.storage.StorageService" />
+    <property name="searchService" ref="com.svisoft.simplegoogle.core.storage.SearchService" />
   </bean>
 
 </beans>

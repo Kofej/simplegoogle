@@ -18,15 +18,15 @@ public class StorageService_searchTest
       throws
       Exception
   {
-    storageService.updateOrCreate("http://url.com", "title", "some string for search.Some stop words: do in for");
-    assertEquals(storageService.search("for", 10).size(), 1);
-    assertEquals(storageService.search("some", 10).size(), 1);
-    assertEquals(storageService.search("some string", 10).size(), 1);
-    assertEquals(storageService.search("string some while", 10).size(), 1);
-    assertEquals(storageService.search("string do in", 10).size(), 1);
-//    assertEquals(storageService.search("title", 10).size(), 1);
-//    assertEquals(storageService.search("titel some", 10).size(), 1);
-//    assertEquals(storageService.search("search", 10).size(), 1);  :-(
+    indexService.index("http://url.com", "title", "some string for search.Some stop words: do in for");
+    assertEquals(searchService.search("for", 10).size(), 1);
+    assertEquals(searchService.search("some", 10).size(), 1);
+    assertEquals(searchService.search("some string", 10).size(), 1);
+    assertEquals(searchService.search("string some while", 10).size(), 1);
+    assertEquals(searchService.search("string do in", 10).size(), 1);
+//    assertEquals(searchService.search("title", 10).size(), 1);
+//    assertEquals(searchService.search("titel some", 10).size(), 1);
+//    assertEquals(searchService.search("search", 10).size(), 1);  :-(
   }
 
   @DataProvider
@@ -48,7 +48,7 @@ public class StorageService_searchTest
   {
     int i = 0;
     for (String value : valuesToStore)
-      storageService.updateOrCreate(Integer.toString(i++), "title", value);
-    assertEquals(storageService.search(query, count).size(), count);
+      indexService.index(Integer.toString(i++), "title", value);
+    assertEquals(searchService.search(query, count).size(), count);
   }
 }

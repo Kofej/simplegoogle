@@ -1,7 +1,7 @@
 package com.svisoft.common.core;
 
-import com.svisoft.simplegoogle.core.storage.StorageService;
-import com.svisoft.simplegoogle.core.storage.StorageDao;
+import com.svisoft.simplegoogle.core.storage.IndexService;
+import com.svisoft.simplegoogle.core.storage.SearchService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterMethod;
@@ -14,14 +14,14 @@ import javax.inject.Inject;
 public class AbstractITest
     extends AbstractTestNGSpringContextTests
 {
-  @Inject public StorageDao storageDao;
-  @Inject public StorageService storageService;
+  @Inject public IndexService indexService;
+  @Inject public SearchService searchService;
 
   @AfterMethod
   public void clearDirectory()
       throws
       Exception
   {
-    storageDao.deleteAll();
+    indexService.deleteAll();
   }
 }

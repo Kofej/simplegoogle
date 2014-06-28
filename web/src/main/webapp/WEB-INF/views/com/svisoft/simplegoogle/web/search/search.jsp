@@ -47,9 +47,10 @@
             </h3>
             <div class="search-result-url">
               <cite><c:out value="${document.id}" /></cite>
-              <div class="search-result-text">
-                <c:out value="${document.text}"/>
-              </div>
+              <%--TODO: preview not implemented yet--%>
+              <%--<div class="search-result-text">--%>
+                <%--<c:out value="${document.text}"/>--%>
+              <%--</div>--%>
             </div>
             <div>
               &nbsp;

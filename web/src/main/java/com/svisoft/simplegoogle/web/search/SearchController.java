@@ -1,7 +1,7 @@
 package com.svisoft.simplegoogle.web.search;
 
 import com.svisoft.common.web.AbstractController;
-import com.svisoft.simplegoogle.core.storage.StorageService;
+import com.svisoft.simplegoogle.core.storage.SearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchController
     extends AbstractController
 {
-  private StorageService storageService;
+  private SearchService searchService;
 
-  public void setStorageService(StorageService storageService)
+  public void setSearchService(SearchService searchService)
   {
-    this.storageService = storageService;
+    this.searchService = searchService;
   }
 
   @RequestMapping(SearchUrl.INDEX)
@@ -34,7 +34,7 @@ public class SearchController
       Exception
   {
     if (!query.equals(""))
-      model.addAttribute("documents", storageService.search(query, SearchPage.DEFAULT_SEARCH_COUNT));
+      model.addAttribute("documents", searchService.search(query, SearchPage.DEFAULT_SEARCH_COUNT));
     model.addAttribute("query", query);
 
     return getView(SearchUrl.SEARCH_VIEW);

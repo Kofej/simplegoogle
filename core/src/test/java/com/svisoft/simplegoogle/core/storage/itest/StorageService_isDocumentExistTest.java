@@ -12,7 +12,7 @@ public class StorageService_isDocumentExistTest
       throws
       Exception
   {
-    storageService.updateOrCreate("http://url.com", "title", "1");
-    assertTrue(storageService.isDocumentExist("http://url.com"));
+    indexService.index("http://url.com", "title", "1");
+    assertTrue(searchService.isDocumentExist("http://url.com"));
   }
 }

@@ -5,7 +5,6 @@ public class SimplegoogleDocument
   private String id;
   private String title;
   private String context;
-  private String text;
 
   public String getId()
   {
@@ -35,15 +34,5 @@ public class SimplegoogleDocument
   public void setContext(String context)
   {
     this.context = context;
-  }
-
-  public String getText()
-  {
-    return text;
-  }
-
-  public void setText(String text)
-  {
-    this.text = text;
   }
 }

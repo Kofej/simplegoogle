@@ -6,13 +6,31 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <!-- Storage -->
-  <bean id="com.svisoft.simplegoogle.core.storage.StorageService"
-        class="com.svisoft.simplegoogle.core.impl.storage.StorageServiceImpl">
-    <property name="storageDao" ref="com.svisoft.simplegoogle.db.storage.StorageDao" />
+  <bean id="com.svisoft.simplegoogle.core.storage.Directory"
+        class="org.apache.lucene.store.RAMDirectory">
   </bean>
 
-  <bean id="com.svisoft.simplegoogle.db.storage.StorageDao"
-        class="com.svisoft.simplegoogle.core.impl.storage.StorageDaoImpl">
+  <bean id="com.svisoft.simplegoogle.core.storage.Analyzer"
+        class="org.apache.lucene.analysis.core.WhitespaceAnalyzer">
+    <constructor-arg value="LUCENE_46" />
+  </bean>
+
+  <bean id="com.svisoft.simplegoogle.core.storage.IndexService"
+        class="com.svisoft.simplegoogle.core.impl.storage.IndexServiceImpl">
+    <property name="directory" ref="com.svisoft.simplegoogle.core.storage.Directory" />
+    <property name="analyzer" ref="com.svisoft.simplegoogle.core.storage.Analyzer" />
+    <property name="luceneVersion" value="LUCENE_46" />
+    <property name="idFieldName" value="id" />  <!--TODO: move to global conf file-->
+    <property name="titleFieldName" value="title" /> <!--TODO: move to global conf file-->
+    <property name="contextFieldName" value="context" /> <!--TODO: move to global conf file-->
+    <property name="searchService" ref="com.svisoft.simplegoogle.core.storage.SearchService" />
+  </bean>
+
+  <bean id="com.svisoft.simplegoogle.core.storage.SearchService"
+        class="com.svisoft.simplegoogle.core.impl.storage.SearchServiceImpl">
+    <property name="directory" ref="com.svisoft.simplegoogle.core.storage.Directory" />
+    <property name="analyzer" ref="com.svisoft.simplegoogle.core.storage.Analyzer" />
+    <property name="luceneVersion" value="LUCENE_46" />
     <property name="idFieldName" value="id" />  <!--TODO: move to global conf file-->
     <property name="titleFieldName" value="title" /> <!--TODO: move to global conf file-->
     <property name="contextFieldName" value="context" /> <!--TODO: move to global conf file-->
@@ -26,7 +44,7 @@
   <!-- Initialize -->
   <bean id="com.svisoft.simplegoogle.core.initialize.InitializeService"
         class="com.svisoft.simplegoogle.core.impl.initialize.InitializeServiceImpl">
-    <property name="storageService" ref="com.svisoft.simplegoogle.core.storage.StorageService" />
+    <property name="indexService" ref="com.svisoft.simplegoogle.core.storage.IndexService" />
     <property name="requestService" ref="com.svisoft.simplegoogle.core.request.RequestService" />
   </bean>
 
