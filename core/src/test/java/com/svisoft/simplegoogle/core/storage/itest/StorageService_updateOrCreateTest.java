@@ -16,7 +16,7 @@ public class StorageService_updateOrCreateTest
       Exception
   {
     indexService.index("http://url.com", "title", "context");
-    List<SimplegoogleDocument> result = searchService.search("context", 2);
+    List<SimplegoogleDocument> result = searchService.search("context");
     assertEquals(result.size(), 1);
   }
 
@@ -27,9 +27,9 @@ public class StorageService_updateOrCreateTest
   {
     indexService.index("http://url.com", "title",  "old");
     indexService.index("http://url.com", "title",  "new value");
-    List<SimplegoogleDocument> result = searchService.search("old", 2);
+    List<SimplegoogleDocument> result = searchService.search("old");
     assertEquals(result.size(), 0);
-    result = searchService.search("new value", 2);
+    result = searchService.search("new value");
     assertEquals(result.size(), 1);
   }
 }

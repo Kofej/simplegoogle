@@ -2,25 +2,21 @@ package com.svisoft.simplegoogle.core.impl.storage;
 
 import com.svisoft.simplegoogle.core.storage.SearchService;
 import com.svisoft.simplegoogle.core.storage.SimplegoogleDocument;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.index.*;
 import org.apache.lucene.search.*;
+import org.apache.lucene.search.spans.SpanTermQuery;
+import org.apache.lucene.search.spans.Spans;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.util.Version;
+import org.apache.lucene.util.Bits;
+import org.apache.lucene.util.BytesRef;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SearchServiceImpl
     implements SearchService
 {
   private Directory directory;
-  private Analyzer analyzer;
-  private Version luceneVersion;
   private String idFieldName;
   private String titleFieldName;
   private String contextFieldName;
@@ -28,16 +24,6 @@ public class SearchServiceImpl
   public void setDirectory(Directory directory)
   {
     this.directory = directory;
-  }
-
-  public void setAnalyzer(Analyzer analyzer)
-  {
-    this.analyzer = analyzer;
-  }
-
-  public void setLuceneVersion(Version luceneVersion)
-  {
-    this.luceneVersion = luceneVersion;
   }
 
   public void setIdFieldName(String idFieldName)
@@ -87,29 +73,59 @@ public class SearchServiceImpl
   }
 
   @Override
-  public List<SimplegoogleDocument> search(String query, int count) throws Exception
+  public List<SimplegoogleDocument> search(String query) throws Exception
   {
     List<SimplegoogleDocument> result = new ArrayList<SimplegoogleDocument>();
     if (directory.listAll().length == 0)
       return result;
-    Query q = new QueryParser(luceneVersion, contextFieldName, analyzer)
-        .parse(QueryParser.escape(query));
-    IndexReader reader = DirectoryReader.open(directory);
-    IndexSearcher searcher = new IndexSearcher(reader);
-    TopScoreDocCollector collector = TopScoreDocCollector.create(count, true);
-    searcher.search(q, collector);
-    ScoreDoc[] hits = collector.topDocs().scoreDocs;
-    SimplegoogleDocument sDocument;
-    for (ScoreDoc scoreDoc : hits)
+    Set<Integer> c = new HashSet<Integer>();
+    for (String queryPart : query.split(" "))
     {
-      Document doc = searcher.doc(scoreDoc.doc);
-      sDocument = new SimplegoogleDocument();
-      sDocument.setId(doc.get(idFieldName));
-      sDocument.setTitle(doc.get(titleFieldName));
-      sDocument.setContext(doc.get(contextFieldName));
-      result.add(sDocument);
+      SpanTermQuery q = new SpanTermQuery(new Term(contextFieldName, queryPart));
+      IndexReader reader = DirectoryReader.open(directory);
+      IndexSearcher searcher = new IndexSearcher(reader);
+      AtomicReader wrapper = SlowCompositeReaderWrapper.wrap(reader);
+      Map<Term, TermContext> termContexts = new HashMap<Term, TermContext>();
+      Spans spans = q.getSpans(wrapper.getContext(), new Bits.MatchAllBits(reader.numDocs()), termContexts);
+      SimplegoogleDocument sDocument;
+      while (spans.next())
+      {
+        if (c.contains(spans.doc())) continue;
+        c.add(spans.doc());
+        Document doc = searcher.doc(spans.doc());
+        int start = spans.start() - 5;
+        int end = spans.end() + 5;
+        Terms content = reader.getTermVector(spans.doc(), contextFieldName);
+        TermsEnum termsEnum = content.iterator(null);
+        BytesRef term;
+        Map<Integer, String> entries = new TreeMap<Integer, String>();
+        while ((term = termsEnum.next()) != null)
+        {
+          String s = new String(term.bytes, term.offset, term.length);
+          DocsAndPositionsEnum positionsEnum = termsEnum.docsAndPositions(null, null);
+          if (positionsEnum.nextDoc() != DocIdSetIterator.NO_MORE_DOCS)
+          {
+            int i = 0;
+            int position;
+            while (i++ < positionsEnum.freq() && (position = positionsEnum.nextPosition()) != -1)
+            {
+              if (position >= start && position <= end)
+                entries.put(position, s);
+            }
+          }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Integer key : entries.keySet())
+          sb.append(entries.get(key)).append(" ");
+
+        sDocument = new SimplegoogleDocument();
+        sDocument.setId(doc.get(idFieldName));
+        sDocument.setTitle(doc.get(titleFieldName));
+        sDocument.setPreviewText(sb.toString());
+        result.add(sDocument);
+      }
+      reader.close();
     }
-    reader.close();
 
     return result;
   }

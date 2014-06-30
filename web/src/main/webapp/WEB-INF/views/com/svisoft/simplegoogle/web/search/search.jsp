@@ -36,29 +36,39 @@
     </tbody>
   </table>
   <div class="search-result-container">
-    <c:if test="${not empty documents}">
-      <ol>
-        <c:forEach var="document" items="${documents}">
+    <c:choose>
+      <c:when test="${not empty documents}">
+        <ol>
+          <c:forEach var="document" items="${documents}">
+            <li class="search-result-document">
+              <h3 class="search-result-title">
+                <a href="<c:out value="${document.id}" />" >
+                  <c:out value="${document.title}"/>
+                </a>
+              </h3>
+              <div class="search-result-url">
+                <cite><c:out value="${document.id}" /></cite>
+              </div>
+              <div class="search-result-text">
+                <c:out value="${document.previewText}"/>...
+              </div>
+              <div>
+                &nbsp;
+              </div>
+            </li>
+          </c:forEach>
+        </ol>
+      </c:when>
+      <c:otherwise>
+        <ol>
           <li class="search-result-document">
-            <h3 class="search-result-title">
-              <a href="<c:out value="${document.id}" />" >
-                <c:out value="${document.title}"/>
-              </a>
-            </h3>
-            <div class="search-result-url">
-              <cite><c:out value="${document.id}" /></cite>
-              <%--TODO: preview not implemented yet--%>
-              <%--<div class="search-result-text">--%>
-                <%--<c:out value="${document.text}"/>--%>
-              <%--</div>--%>
-            </div>
-            <div>
-              &nbsp;
+            <div class="search-result-text">
+              Can't find...
             </div>
           </li>
-        </c:forEach>
-      </ol>
-    </c:if>
+        </ol>
+      </c:otherwise>
+    </c:choose>
   </div>
 </body>
 </html>

@@ -22,18 +22,16 @@
     <property name="luceneVersion" value="LUCENE_46" />
     <property name="idFieldName" value="id" />  <!--TODO: move to global conf file-->
     <property name="titleFieldName" value="title" /> <!--TODO: move to global conf file-->
-    <property name="contextFieldName" value="context" /> <!--TODO: move to global conf file-->
+    <property name="contentFieldName" value="content" /> <!--TODO: move to global conf file-->
     <property name="searchService" ref="com.svisoft.simplegoogle.core.storage.SearchService" />
   </bean>
 
   <bean id="com.svisoft.simplegoogle.core.storage.SearchService"
         class="com.svisoft.simplegoogle.core.impl.storage.SearchServiceImpl">
     <property name="directory" ref="com.svisoft.simplegoogle.core.storage.Directory" />
-    <property name="analyzer" ref="com.svisoft.simplegoogle.core.storage.Analyzer" />
-    <property name="luceneVersion" value="LUCENE_46" />
     <property name="idFieldName" value="id" />  <!--TODO: move to global conf file-->
     <property name="titleFieldName" value="title" /> <!--TODO: move to global conf file-->
-    <property name="contextFieldName" value="context" /> <!--TODO: move to global conf file-->
+    <property name="contextFieldName" value="content" /> <!--TODO: move to global conf file-->
   </bean>
 
   <!-- Request -->

@@ -34,7 +34,7 @@ public class SearchController
       Exception
   {
     if (!query.equals(""))
-      model.addAttribute("documents", searchService.search(query, SearchPage.DEFAULT_SEARCH_COUNT));
+      model.addAttribute("documents", searchService.search(query));
     model.addAttribute("query", query);
 
     return getView(SearchUrl.SEARCH_VIEW);

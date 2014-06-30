@@ -63,7 +63,7 @@ public class InitializeServiceImpl
     }
     catch (Exception e)
     {
-      System.err.println(url + " : error. " + e.getMessage());
+      System.out.println(url + " : error. " + e.getMessage());
     }
   }
 }

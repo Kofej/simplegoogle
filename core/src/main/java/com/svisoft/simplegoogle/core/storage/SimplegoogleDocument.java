@@ -4,7 +4,7 @@ public class SimplegoogleDocument
 {
   private String id;
   private String title;
-  private String context;
+  private String previewText;
 
   public String getId()
   {
@@ -26,13 +26,13 @@ public class SimplegoogleDocument
     this.title = title;
   }
 
-  public String getContext()
+  public String getPreviewText()
   {
-    return context;
+    return previewText;
   }
 
-  public void setContext(String context)
+  public void setPreviewText(String previewText)
   {
-    this.context = context;
+    this.previewText = previewText;
   }
 }

@@ -4,9 +4,7 @@ import com.svisoft.simplegoogle.core.storage.DocumentBuilder;
 import com.svisoft.simplegoogle.core.storage.IndexService;
 import com.svisoft.simplegoogle.core.storage.SearchService;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
+import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
@@ -21,7 +19,7 @@ public class IndexServiceImpl
   private Version luceneVersion;
   private String idFieldName;
   private String titleFieldName;
-  private String contextFieldName;
+  private String contentFieldName;
   private SearchService searchService;
 
   public void setDirectory(Directory directory)
@@ -49,9 +47,9 @@ public class IndexServiceImpl
     this.titleFieldName = titleFieldName;
   }
 
-  public void setContextFieldName(String contextFieldName)
+  public void setContentFieldName(String contentFieldName)
   {
-    this.contextFieldName = contextFieldName;
+    this.contentFieldName = contentFieldName;
   }
 
   public void setSearchService(SearchService searchService)
@@ -60,13 +58,19 @@ public class IndexServiceImpl
   }
 
   @Override
-  public void index(String id, String title, String context) throws Exception
+  public void index(String id, String title, String content) throws Exception
   {
     IndexWriter writer = new IndexWriter(directory, new IndexWriterConfig(luceneVersion, analyzer));
+    FieldType sFieldType = new FieldType();
+    sFieldType.setStoreTermVectors(true);
+    sFieldType.setStoreTermVectorOffsets(true);
+    sFieldType.setStoreTermVectorPositions(true);
+    sFieldType.setIndexed(true);
+    sFieldType.setTokenized(true);
     Document doc = new DocumentBuilder()
         .add(idFieldName, id, StringField.TYPE_STORED)
         .add(titleFieldName, title, TextField.TYPE_STORED)
-        .add(contextFieldName, context, TextField.TYPE_NOT_STORED)
+        .add(contentFieldName, content, sFieldType)
         .build();
     if (searchService.isDocumentExist(id))
       writer.updateDocument(new Term(idFieldName, id), doc);
